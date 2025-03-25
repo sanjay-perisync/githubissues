@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { projectListSuccess, addProject, deleteProject } from "../../Redux/Slices/Projects/ProjectsSlice";
+import { useNavigate } from "react-router-dom";
 
 const Projects = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [MenuId, SetmenuId] = useState(null);
   const [newProjectTitle, setNewProjectTitle] = useState("");
   const projects = useSelector((state) => state.projectSliceReducer.projectdetailsSlice.projects || []);
 
+// console.log("projects:",projects);
 
 
 
@@ -67,9 +69,11 @@ const Projects = () => {
               className="p-4 border border-gray-700 rounded-lg text-white flex justify-between items-center"
             >
               <div className="flex justify-between items-center w-full">
-                <p className="font-semibold">{project.title}</p>
-                <div className="relative">
+                <button className="font-semibold hover:underline"
+                  onClick={() => navigate(`/issuelist/${project.id}`)}>{project.title}
+                </button>
 
+                <div className="relative">
                   <button
                     onClick={() =>
                       SetmenuId(MenuId === project.id ? null : project.id)
@@ -104,6 +108,7 @@ const Projects = () => {
                     </div>
                   )}
                 </div>
+
               </div>
             </div>
           ))}
