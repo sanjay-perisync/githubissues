@@ -1,0 +1,147 @@
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { projectListSuccess, addProject, deleteProject } from "../../Redux/Slices/Projects/ProjectsSlice";
+
+const Projects = () => {
+  const dispatch = useDispatch();
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [MenuId, SetmenuId] = useState(null);
+  const [newProjectTitle, setNewProjectTitle] = useState("");
+  const projects = useSelector((state) => state.projectSliceReducer.projectdetailsSlice.projects || []);
+
+
+
+
+  useEffect(() => {
+    const storedProjects = JSON.parse(localStorage.getItem("projects")) || [];
+    dispatch(projectListSuccess(storedProjects));
+  }, [dispatch]);
+
+
+
+
+  const handleAddProject = () => {
+    if (newProjectTitle) {
+      const newProject = { id: Date.now(), title: newProjectTitle };
+
+      dispatch(addProject(newProject));
+
+      setNewProjectTitle("");
+      setIsOpen(false);
+    }
+  };
+
+
+
+  const handleDeleteProject = (id) => {
+    dispatch(deleteProject(id));
+    SetmenuId(null);
+  };
+
+
+  return (
+    <div className="h-screen p-6 bg-slate-900">
+      <section className="mx-auto max-w-3xl">
+        <div className="flex justify-between items-center mb-6">
+          <input
+            type="text"
+            placeholder="Search all projects"
+            className="w-full max-w-md px-4 py-2 rounded-md text-white bg-slate-900 border border-gray-700"
+          />
+          <button
+            onClick={() => setIsOpen(true)}
+            className="bg-green-700 flex gap-1 text-white px-4 py-2 rounded-md"
+          >
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M11 13H6q-.425 0-.712-.288T5 12t.288-.712T6 11h5V6q0-.425.288-.712T12 5t.713.288T13 6v5h5q.425 0 .713.288T19 12t-.288.713T18 13h-5v5q0 .425-.288.713T12 19t-.712-.288T11 18z" /></svg>
+            </div>
+            <p className="font-semibold">New Project</p>
+          </button>
+        </div>
+
+        <div className="space-y-4">
+          {projects.map((project) => (
+            <div
+              key={project.id}
+              className="p-4 border border-gray-700 rounded-lg text-white flex justify-between items-center"
+            >
+              <div className="flex justify-between items-center w-full">
+                <p className="font-semibold">{project.title}</p>
+                <div className="relative">
+
+                  <button
+                    onClick={() =>
+                      SetmenuId(MenuId === project.id ? null : project.id)
+                    }
+                    className="hover:bg-gray-700 px-2 py-1 rounded-lg"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-6 h-6 text-gray-400"
+                      viewBox="0 0 512 512"
+                    >
+                      <path
+                        fill="currentColor"
+                        fillRule="evenodd"
+                        d="M117.333 256c0-17.673-14.327-32-32-32s-32 14.327-32 32s14.327 32 32 32s32-14.327 32-32m341.333 0c0-17.673-14.327-32-32-32s-32 14.327-32 32s14.327 32 32 32s32-14.327 32-32M288 256c0-17.673-14.327-32-32-32s-32 14.327-32 32s14.327 32 32 32s32-14.327 32-32"
+                      />
+                    </svg>
+                  </button>
+
+
+                  {MenuId === project.id && (
+                    <div className="absolute z-10 left-2 right-0 mt-1 w-40 border border-gray-700 bg-gray-800 text-white shadow-lg rounded-lg py-[6px]">
+                      <button
+                        className="flex items-center space-x-1 px-2 py-1 text-white  w-full" onClick={() => handleDeleteProject(project.id)}
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                          <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"
+                            d="M6.758 17.243L12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243" />
+                        </svg>
+                        <p>Remove project</p>
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {isOpen && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white p-6 rounded-lg w-96 shadow-lg relative">
+              <button
+                onClick={() => setIsOpen(false)}
+                className="absolute top-2 right-2 text-black"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                  <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"
+                    d="M6.758 17.243L12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243" />
+                </svg>
+              </button>
+              <h2 className="text-lg font-semibold mb-4">Create New Project</h2>
+              <input
+                type="text"
+                placeholder="Enter project title"
+                className="w-full border p-2 rounded mb-4"
+                value={newProjectTitle}
+                onChange={(e) => setNewProjectTitle(e.target.value)}
+              />
+              <button
+                onClick={handleAddProject}
+                className="w-full bg-green-700 text-white px-4 py-2 rounded-lg"
+              >
+                Create Project
+              </button>
+            </div>
+          </div>
+        )}
+      </section>
+    </div>
+  );
+};
+
+export default Projects;
+

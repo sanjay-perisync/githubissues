@@ -1,10 +1,15 @@
-import './App.css';
-
+import React from "react";
+import Projects from "./Components/CreateProject/Projects";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Provider } from "react-redux"; 
+import { store } from "./Redux/Store";
 function App() {
   return (
-    <div className="border p-4 m-4">
-      <h1 className='bg-yellow-500 text-3xl font-semibold px-2 py-2 text-white'>Hello</h1>
+    <Provider store={store}> 
+    <div>
+      <Projects />
     </div>
+    </Provider>
   );
 }
 
