@@ -29,6 +29,16 @@ const issuesdetailsSlice = createSlice({
       }
     },
 
+    updateIssue: (state, action) => {
+      const { projectId, issueId, updates } = action.payload;
+      if (state.issuesByProject[projectId]) {
+        state.issuesByProject[projectId] = state.issuesByProject[projectId].map(
+          (issue) => issue.id === issueId ? { ...issue, ...updates } : issue
+        );
+        localStorage.setItem("issues", JSON.stringify(state.issuesByProject));
+      }
+    },
+
     ResetState: (state) => {
       state.issuesByProject = {};
       localStorage.removeItem("issues");
@@ -36,5 +46,5 @@ const issuesdetailsSlice = createSlice({
   },
 });
 
-export const { IssueListSuccess, AddIssue, DeleteIssue, ResetState } = issuesdetailsSlice.actions;
+export const { IssueListSuccess, AddIssue, DeleteIssue,updateIssue, ResetState } = issuesdetailsSlice.actions;
 export default issuesdetailsSlice.reducer;

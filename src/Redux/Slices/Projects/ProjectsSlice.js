@@ -4,6 +4,11 @@ const initialState = {
   projects: [], 
 };
 
+
+const updateLocalStorage = (key, data) => {
+  localStorage.setItem(key, JSON.stringify(data));
+};
+
 const projectdetailsSlice = createSlice({
   name: "projects",
   initialState,
@@ -12,22 +17,25 @@ const projectdetailsSlice = createSlice({
       state.projects = action.payload || [];
     },
 
-    
+
     addProject: (state, action) => {
       state.projects.push(action.payload);
-      localStorage.setItem("projects", JSON.stringify(state.projects));
+      // localStorage.setItem("projects", JSON.stringify(state.projects));
+      updateLocalStorage("projects", state.projects);
     },
 
 
     deleteProject: (state, action) => {
       const projectId = action.payload;
       state.projects = state.projects.filter(project => project.id !== projectId);
-      localStorage.setItem("projects", JSON.stringify(state.projects));
+      // localStorage.setItem("projects", JSON.stringify(state.projects));
+      updateLocalStorage("projects", state.projects);
 
       
       const storedIssues = JSON.parse(localStorage.getItem("issues")) || {};
       delete storedIssues[projectId]; 
-      localStorage.setItem("issues", JSON.stringify(storedIssues));
+      // localStorage.setItem("issues", JSON.stringify(storedIssues));
+      updateLocalStorage("issues", storedIssues);
     },
 
 
@@ -36,7 +44,8 @@ const projectdetailsSlice = createSlice({
       state.projects = state.projects.map(project => 
         project.id === id ? { ...project, title: newTitle } : project
       );
-      localStorage.setItem("projects", JSON.stringify(state.projects));
+      // localStorage.setItem("projects", JSON.stringify(state.projects));
+      updateLocalStorage("projects", state.projects);
     },
     
     ResetState: () => {

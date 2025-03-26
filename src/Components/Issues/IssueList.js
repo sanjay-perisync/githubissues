@@ -1,36 +1,78 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { DeleteIssue } from "../../Redux/Slices/Issue/IssuesSlice";
+import { DeleteIssue, updateIssue } from "../../Redux/Slices/Issue/IssuesSlice";
 
 const IssueList = () => {
   const { projectId } = useParams();
   const dispatch = useDispatch();
 
-  const issueslist = useSelector( (state) =>state.issuesSliceReducer.issuesdetailsSlice.issuesByProject[projectId] ||[] );
-
-  // console.log("issueslist:", issueslist);
+  const issueslist = useSelector(
+    (state) => state.issuesSliceReducer.issuesdetailsSlice.issuesByProject[projectId] || []
+  );
 
   const [menuId, setMenuId] = useState(null);
+  const [editingIssue, setEditingIssue] = useState(null);
+  const [editTitle, setEditTitle] = useState("");
+  const [editDescription, setEditDescription] = useState("");
+  const [search, setSearch] = useState("");
+
 
   const handleDeleteIssue = (issueId) => {
     dispatch(DeleteIssue({ projectId, issueId }));
   };
 
+  const handleEditIssue = (issue) => {
+    setEditingIssue(issue.id);
+    setEditTitle(issue.title);
+    setEditDescription(issue.description || "");
+    setMenuId(null);
+  };
+
+  const handleSaveEdit = () => {
+    if (editingIssue) {
+      dispatch(updateIssue({
+        projectId,
+        issueId: editingIssue,
+        updates: {
+          title: editTitle,
+          description: editDescription
+        }
+      }));
+      setEditingIssue(null);
+      setEditTitle("");
+      setEditDescription("");
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setEditingIssue(null);
+    setEditTitle("");
+    setEditDescription("");
+  };
+
+
+  const filteredIssues = issueslist.filter(issue =>
+    issue.title.toLowerCase().includes(search.toLowerCase()) ||
+    issue.id.toString().includes(search)
+  );
+
   return (
     <div className="bg-slate-900 h-screen">
       <main className="mx-auto max-w-3xl pt-10">
         <Link to={'/'} className="text-white hover:underline pb-5 flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" width="" height="" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M244 400L100 256l144-144M120 256h292" /></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 512 512">
+            <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="48" d="M244 400L100 256l144-144M120 256h292" />
+          </svg>
           <span>Projects</span>
         </Link>
         <header>
-
           <div className="flex justify-between items-center mb-6">
             <input
               type="text"
               placeholder="Search Issues"
               className="w-full max-w-md px-4 py-2 rounded-md text-white bg-slate-900 border border-gray-700"
+              onChange={(e) => setSearch(e.target.value)}
             />
             <Link
               to={`/createissue/${projectId}`}
@@ -54,79 +96,65 @@ const IssueList = () => {
           </div>
         </header>
 
+
         <div className="mt-5 space-y-4">
-          {Array.isArray(issueslist) && issueslist.length > 0 ? (
-            issueslist.map((issue) => (
-              <div
-                key={issue.id}
-                className="flex justify-between items-center p-3 bg-gray-800 text-white rounded-md border border-gray-700"
-              >
-                <div >
-                  <Link to={`/project/${projectId}/issue/${issue.id}`} className="hover:underline">{issue.title}</Link>
-                  <p>#{issue.id}</p>
-                </div>
-                <div className="relative">
-                  <button
-                    onClick={() =>
-                      setMenuId(menuId === issue.id ? null : issue.id)
-                    }
-                    className="hover:bg-gray-700 px-2 py-1 rounded-lg"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-6 h-6 text-gray-400"
-                      viewBox="0 0 512 512"
-                    >
-                      <path
-                        fill="currentColor"
-                        fillRule="evenodd"
-                        d="M117.333 256c0-17.673-14.327-32-32-32s-32 14.327-32 32s14.327 32 32 32s32-14.327 32-32m341.333 0c0-17.673-14.327-32-32-32s-32 14.327-32 32s14.327 32 32 32s32-14.327 32-32M288 256c0-17.673-14.327-32-32-32s-32 14.327-32 32s14.327 32 32 32s32-14.327 32-32"
-                      />
-                    </svg>
-                  </button>
-
-                  {menuId === issue.id && (
-                    <div className="absolute z-10 left-2 right-0 mt-1 w-40 border border-gray-700 bg-gray-800 text-white shadow-lg rounded-lg py-[6px]">
-                     
+          {filteredIssues.length > 0 ? (
+            filteredIssues.map((issue) => (
+              <div key={issue.id} className="flex justify-between items-center p-3 text-white rounded-md border border-gray-700">
+                {editingIssue === issue.id ? (
+                  <div className="w-full">
+                    <input
+                      type="text"
+                      value={editTitle}
+                      onChange={(e) => setEditTitle(e.target.value)}
+                      className="w-full mb-2 px-2 py-2 rounded bg-gray-800 text-white"
+                      placeholder="Issue Title"
+                    />
+                    <textarea
+                      value={editDescription}
+                      onChange={(e) => setEditDescription(e.target.value)}
+                      className="w-full mb-2 px-2 py-1 rounded bg-gray-800 text-white"
+                      placeholder="Issue Description"
+                      rows="3"
+                    />
+                    <div className="flex justify-end space-x-2">
+                      <button onClick={handleSaveEdit} className="bg-green-600 px-3 py-1 rounded">Save</button>
+                      <button onClick={handleCancelEdit} className="bg-gray-600 px-3 py-1 rounded">Cancel</button>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <div>
+                      <Link to={`/project/${projectId}/issue/${issue.id}`} className="hover:underline">{issue.title}</Link>
+                      <p>#{issue.id}</p>
+                    </div>
+                    <div className="relative">
                       <button
-                        className="flex items-center space-x-2 px-2 py-1 text-white w-full hover:bg-gray-700"
+                        onClick={() => setMenuId(menuId === issue.id ? null : issue.id)}
+                        className="hover:bg-gray-700 px-2 py-1 rounded-lg"
                       >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 24 24">
-                        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                          <path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                          <path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z" />
-                          </g></svg>
-                        <p>Update Issue</p>
-                      </button>
-
-
-
-
-            
-                      <button
-                        className="flex items-center space-x-1 px-2 py-1 text-white w-full hover:bg-gray-700"
-                        onClick={() => handleDeleteIssue(issue.id)}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-6 w-6"
-                          viewBox="0 0 24 24"
-                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-gray-400" viewBox="0 0 512 512">
                           <path
-                            fill="none"
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="1.5"
-                            d="M6.758 17.243L12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243"
+                            fill="currentColor"
+                            fillRule="evenodd"
+                            d="M117.333 256c0-17.673-14.327-32-32-32s-32 14.327-32 32s14.327 32 32 32s32-14.327 32-32m341.333 0c0-17.673-14.327-32-32-32s-32 14.327-32 32s14.327 32 32 32M288 256c0-17.673-14.327-32-32-32s-32 14.327-32 32s14.327-32 32-32"
                           />
                         </svg>
-                        <p>Delete Issue</p>
                       </button>
-                    </div>
-                  )}
 
-                </div>
+                      {menuId === issue.id && (
+                        <div className="absolute z-10 left-2 right-0 mt-1 w-40 border border-gray-700 bg-gray-800 text-white shadow-lg rounded-lg py-[6px]">
+                          <button className="flex items-center space-x-2 px-2 py-1 text-white w-full hover:bg-gray-700" onClick={() => handleEditIssue(issue)}>
+                            <p>Update Issue</p>
+                          </button>
+                          <button className="flex items-center space-x-1 px-2 py-1 text-white w-full hover:bg-gray-700" onClick={() => handleDeleteIssue(issue.id)}>
+                            <p>Delete Issue</p>
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </>
+                )}
               </div>
             ))
           ) : (

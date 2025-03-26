@@ -11,6 +11,7 @@ const Projects = () => {
   const [newProjectTitle, setNewProjectTitle] = useState("");
   const [editProjectId, setEditProjectId] = useState(null);
   const [editProjectTitle, setEditProjectTitle] = useState("");
+  const [search, setSearch] = useState("");
   const projects = useSelector((state) => state.projectSliceReducer.projectdetailsSlice.projects || []);
 
   useEffect(() => {
@@ -46,6 +47,11 @@ const Projects = () => {
     }
   };
 
+
+  const filteredProjects = projects.filter((project) =>
+    project.title.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <div className="h-screen p-6 bg-slate-900">
       <section className="mx-auto max-w-3xl">
@@ -54,6 +60,7 @@ const Projects = () => {
             type="text"
             placeholder="Search all projects"
             className="w-full max-w-md px-4 py-2 rounded-md text-white bg-slate-900 border border-gray-700"
+            onChange={(e) => setSearch(e.target.value)}
           />
           <button
             onClick={() => setIsOpen(true)}
@@ -67,66 +74,59 @@ const Projects = () => {
         </div>
 
         <div className="space-y-4">
-          {projects.map((project) => (
-            <div
-              key={project.id}
-              className="p-4 border border-gray-700 rounded-lg text-white flex justify-between items-center"
-            >
-              <div className="flex justify-between items-center w-full">
-                <button
-                  className="font-semibold hover:underline"
-                  onClick={() => navigate(`/issuelist/${project.id}`)}
-                >
-                  {project.title}
-                </button>
-
-                <div className="relative">
+          {filteredProjects.length > 0 ? (
+            filteredProjects.map((project) => (
+              <div
+                key={project.id}
+                className="p-4 border border-gray-700 rounded-lg text-white flex justify-between items-center"
+              >
+                <div className="flex justify-between items-center w-full">
                   <button
-                    onClick={() =>
-                      SetmenuId(MenuId === project.id ? null : project.id)
-                    }
-                    className="hover:bg-gray-700 px-2 py-1 rounded-lg"
+                    className="font-semibold hover:underline"
+                    onClick={() => navigate(`/issuelist/${project.id}`)}
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-6 h-6 text-gray-400"
-                      viewBox="0 0 512 512"
-                    >
-                      <path
-                        fill="currentColor"
-                        fillRule="evenodd"
-                        d="M117.333 256c0-17.673-14.327-32-32-32s-32 14.327-32 32s14.327 32 32 32s32-14.327 32-32m341.333 0c0-17.673-14.327-32-32-32s-32 14.327-32 32s14.327 32 32 32s32-14.327 32-32M288 256c0-17.673-14.327-32-32-32s-32 14.327-32 32s14.327 32 32 32s32-14.327 32-32"
-                      />
-                    </svg>
+                    {project.title}
                   </button>
 
-                  {MenuId === project.id && (
-                    <div className="absolute z-10 left-2 right-0 mt-1 w-40 border border-gray-700 bg-gray-800 text-white shadow-lg rounded-lg py-[6px]">
+                  <div className="relative">
+                    <button
+                      onClick={() => SetmenuId(MenuId === project.id ? null : project.id)}
+                      className="hover:bg-gray-700 px-2 py-1 rounded-lg"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-gray-400" viewBox="0 0 512 512">
+                        <path fill="currentColor" fillRule="evenodd" d="M117.333 256c0-17.673-14.327-32-32-32s-32 14.327-32 32s14.327 32 32 32s32-14.327 32-32m341.333 0c0-17.673-14.327-32-32-32s-32 14.327-32 32s14.327 32 32 32s32-14.327 32-32M288 256c0-17.673-14.327-32-32-32s-32 14.327-32 32s14.327 32 32 32s32-14.327 32-32"/>
+                      </svg>
+                    </button>
 
-                      <button
-                        className="flex items-center space-x-2 px-2 py-1 text-white w-full hover:bg-gray-700"
-                        onClick={() => handleEditProject(project)}
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" /><path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z" /></g></svg>
-                        <p>Edit</p>
-                      </button>
+                    {MenuId === project.id && (
+                      <div className="absolute z-10 left-2 right-0 mt-1 w-40 border border-gray-700 bg-gray-800 text-white shadow-lg rounded-lg py-[6px]">
+                        <button
+                          className="flex items-center space-x-2 px-2 py-1 text-white w-full hover:bg-gray-700"
+                          onClick={() => handleEditProject(project)}
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" /><path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z" /></g></svg>
+                          <p>Edit</p>
+                        </button>
 
-                      <button
-                        className="flex items-center space-x-1 px-2 py-1 text-white w-full"
-                        onClick={() => handleDeleteProject(project.id)}
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 24 24">
-                          <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"
-                            d="M6.758 17.243L12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243" />
-                        </svg>
-                        <p>Remove project</p>
-                      </button>
-                    </div>
-                  )}
+                        <button
+                          className="flex items-center space-x-1 px-2 py-1 text-white w-full"
+                          onClick={() => handleDeleteProject(project.id)}
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 24 24">
+                            <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"
+                              d="M6.758 17.243L12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243" />
+                          </svg>
+                          <p>Remove project</p>
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <p className="text-gray-400 text-center">No projects found.</p>
+          )}
         </div>
 
 
