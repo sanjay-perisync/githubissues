@@ -5,9 +5,9 @@ import issuesdetailsSlice from "./IssuesSlice";
 
 
 
-const issuesReducer=combineReducers({
+const issuesSliceReducer=combineReducers({
     issuesdetailsSlice
 })
 
 
-export default issuesReducer;
+export default issuesSliceReducer;

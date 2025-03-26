@@ -1,16 +1,14 @@
 
 
 import { combineReducers } from "@reduxjs/toolkit";
-import issuesReducer from "../Slices/Issue";
 import projectSliceReducer from "../Slices/Projects";
-// import billingReducer from "../Slices/Issues";
-// import productsSliceReducer from "../Slices/Products"; 
+import issuesSliceReducer from "../Slices/Issue";
 
 
 
 
 const rootReducer = combineReducers({
-  issuesReducer,
+  issuesSliceReducer,
   projectSliceReducer,
 
 });
