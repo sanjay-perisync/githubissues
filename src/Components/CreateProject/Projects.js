@@ -11,8 +11,7 @@ const Projects = () => {
   const [newProjectTitle, setNewProjectTitle] = useState("");
   const projects = useSelector((state) => state.projectSliceReducer.projectdetailsSlice.projects || []);
 
-// console.log("projects:",projects);
-
+  console.log("Redux Projects:", projects);
 
 
   useEffect(() => {
@@ -70,7 +69,8 @@ const Projects = () => {
             >
               <div className="flex justify-between items-center w-full">
                 <button className="font-semibold hover:underline"
-                  onClick={() => navigate(`/issuelist/${project.id}`)}>{project.title}
+                 onClick={() => navigate(`/issuelist/${project.id}`)}>
+                  {project.title}
                 </button>
 
                 <div className="relative">

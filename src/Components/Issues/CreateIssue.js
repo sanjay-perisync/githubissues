@@ -6,8 +6,7 @@ import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { Bold, Italic, Underline, Link2, List, Code } from "lucide-react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $getRoot } from "lexical";
-import { useNavigate } from "react-router-dom";
-
+import { useNavigate, useParams } from "react-router-dom";
 const Toolbar = () => {
     const [editor] = useLexicalComposerContext();
    
@@ -70,8 +69,8 @@ const Editor = () => {
 
 const CreateIssue = () => {
     const [title, setTitle] = useState("");
+    const { projectId } = useParams();
     const navigate = useNavigate();
-
     return (
         <div className='bg-slate-900 h-screen'>
 
@@ -102,7 +101,7 @@ const CreateIssue = () => {
                     </div>
 
                     <div className="flex gap-2">
-                        <button className="px-4 py-2 hover:bg-gray-700 text-gray-400 rounded-lg "  onClick={() => navigate(`/`)}>Cancel</button>
+                        <button className="px-4 py-2 hover:bg-gray-700 text-gray-400 rounded-lg border border-gray-700"  onClick={() => navigate(`/issuelist/${projectId}`)}>Cancel</button>
                     </div>
 
                     <div className="flex gap-2">

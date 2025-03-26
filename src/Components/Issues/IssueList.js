@@ -1,7 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link,useParams  } from 'react-router-dom'
 
-function IssueList() {
+const  IssueList = () => {
+  const { projectId } = useParams();
+  // console.log("projectId:", projectId);
   return (
     <div className='bg-slate-900 h-screen'>
 
@@ -13,8 +15,7 @@ function IssueList() {
             placeholder="Search Issues"
             className="w-full max-w-md px-4 py-2 rounded-md text-white bg-slate-900 border border-gray-700"
           />
-          <Link to='/createissue'
-          
+ <Link to={`/createissue/${projectId}`}          
             className="bg-green-700 flex gap-1 text-white px-4 py-2 rounded-md"
           >
             <div>

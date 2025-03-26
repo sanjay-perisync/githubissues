@@ -13,9 +13,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Navigate to="/projects" />} />
             <Route path="projects" element={<Projects />} />
-            <Route path="issuelist/:id" element={<IssueList />} />
-            <Route path="createissue" element={<CreateIssue />} />
-          </Routes>
+            <Route path="issuelist/:projectId" element={<IssueList />} />
+            <Route path="createissue/:projectId" element={<CreateIssue />} />
+            </Routes>
         </div>
       </Router>
     </Provider>
