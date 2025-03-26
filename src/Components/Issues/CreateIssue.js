@@ -6,7 +6,7 @@ import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $getRoot } from "lexical";
 import { Bold, Italic, Underline, Link2, List, Code } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { AddIssue } from "../../Redux/Slices/Issue/IssuesSlice";
 
@@ -48,7 +48,7 @@ const EditorOnChange = ({ onChange }) => {
         return editor.registerUpdateListener(({ editorState }) => {
             editorState.read(() => {
                 const text = $getRoot().getTextContent();
-                onChange(text); 
+                onChange(text);
             });
         });
     }, [editor, onChange]);
@@ -89,10 +89,10 @@ const CreateIssue = () => {
     const dispatch = useDispatch();
 
     const handleCreateIssue = () => {
-   
+
         // console.log("Title:", title);
         // console.log("Description:", description);
-        
+
 
         const newIssue = {
             id: Date.now(),
@@ -108,6 +108,10 @@ const CreateIssue = () => {
     return (
         <div className="bg-slate-900 h-screen">
             <main className="mx-auto max-w-3xl pt-10 space-y-2">
+                <Link to={`/issuelist/${projectId}`} className="text-white hover:underline pb-5 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" width="" height="" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M244 400L100 256l144-144M120 256h292" /></svg>
+                    <span>Projects/Issues</span>
+                </Link>
                 <h2 className="text-xl font-semibold mb-4 text-white">Create a New Issue</h2>
 
                 <div className="my-8">

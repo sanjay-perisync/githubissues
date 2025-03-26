@@ -6,7 +6,7 @@ import { DeleteIssue } from "../../Redux/Slices/Issue/IssuesSlice";
 const IssueList = () => {
   const { projectId } = useParams();
   const dispatch = useDispatch();
-  
+
   const issueslist = useSelector(
     (state) =>
       state.issuesSliceReducer.issuesdetailsSlice.issuesByProject[projectId] ||
@@ -24,7 +24,12 @@ const IssueList = () => {
   return (
     <div className="bg-slate-900 h-screen">
       <main className="mx-auto max-w-3xl pt-10">
+        <Link to={'/'} className="text-white hover:underline pb-5 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" width="" height="" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M244 400L100 256l144-144M120 256h292" /></svg>
+          <span>Projects</span>
+        </Link>
         <header>
+
           <div className="flex justify-between items-center mb-6">
             <input
               type="text"
@@ -60,8 +65,10 @@ const IssueList = () => {
                 key={issue.id}
                 className="flex justify-between items-center p-3 bg-gray-800 text-white rounded-md border border-gray-700"
               >
-                <button className="hover:underline">{issue.title}</button>
-
+                <div >
+                  <Link to={`/project/${projectId}/issue/${issue.id}`} className="hover:underline">{issue.title}</Link>
+                  <p>#{issue.id}</p>
+                </div>
                 <div className="relative">
                   <button
                     onClick={() =>

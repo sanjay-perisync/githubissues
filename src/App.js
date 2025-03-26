@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { store } from "./Redux/Store";
 import IssueList from "./Components/Issues/IssueList";
 import CreateIssue from "./Components/Issues/CreateIssue";
+import IssueDetails from "./Components/Issues/IssueDetails";
 function App() {
   return (
     <Provider store={store}>
@@ -15,6 +16,7 @@ function App() {
             <Route path="projects" element={<Projects />} />
             <Route path="issuelist/:projectId" element={<IssueList />} />
             <Route path="createissue/:projectId" element={<CreateIssue />} />
+            <Route path="/project/:projectId/issue/:issueId" element={<IssueDetails />} />
             </Routes>
         </div>
       </Router>
