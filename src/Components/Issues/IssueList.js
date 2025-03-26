@@ -7,11 +7,7 @@ const IssueList = () => {
   const { projectId } = useParams();
   const dispatch = useDispatch();
 
-  const issueslist = useSelector(
-    (state) =>
-      state.issuesSliceReducer.issuesdetailsSlice.issuesByProject[projectId] ||
-      []
-  );
+  const issueslist = useSelector( (state) =>state.issuesSliceReducer.issuesdetailsSlice.issuesByProject[projectId] ||[] );
 
   // console.log("issueslist:", issueslist);
 
@@ -91,14 +87,29 @@ const IssueList = () => {
 
                   {menuId === issue.id && (
                     <div className="absolute z-10 left-2 right-0 mt-1 w-40 border border-gray-700 bg-gray-800 text-white shadow-lg rounded-lg py-[6px]">
+                     
                       <button
-                        className="flex items-center space-x-1 px-2 py-1 text-white w-full"
+                        className="flex items-center space-x-2 px-2 py-1 text-white w-full hover:bg-gray-700"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 24 24">
+                        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                          <path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                          <path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z" />
+                          </g></svg>
+                        <p>Update Issue</p>
+                      </button>
+
+
+
+
+            
+                      <button
+                        className="flex items-center space-x-1 px-2 py-1 text-white w-full hover:bg-gray-700"
                         onClick={() => handleDeleteIssue(issue.id)}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
+                          className="h-6 w-6"
                           viewBox="0 0 24 24"
                         >
                           <path
@@ -114,6 +125,7 @@ const IssueList = () => {
                       </button>
                     </div>
                   )}
+
                 </div>
               </div>
             ))

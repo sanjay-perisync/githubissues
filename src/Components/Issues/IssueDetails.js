@@ -25,8 +25,11 @@ const IssueDetails = () => {
       </button>
 
       <div className="mt-5">
-        <p>#{issue.id}</p>
-        <h1 className="text-2xl font-bold">{issue.title}</h1>
+        <div className="flex items-center gap-2 text-2xl">
+      <p className=" font-semibold">{issue.title}</p>
+        <p className="text-gray-500">#{issue.id}</p>
+        </div>
+
         <p className="mt-2 text-gray-300 min-h-[150px] w-full border border-gray-700 rounded-lg p-2">{issue.description}</p>
       </div>
     </div>
