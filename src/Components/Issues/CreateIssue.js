@@ -81,7 +81,15 @@ const CreateIssue = () => {
                         </div>
 
                         <button className="px-4 py-2 hover:bg-gray-700 text-gray-400 rounded-lg border border-gray-700" onClick={() => navigate(`/issuelist/${projectId}`)}>Cancel</button>
-                        <button className="px-4 py-2 bg-green-700 text-white rounded-lg" onClick={handleCreateIssue}>Create</button>
+                        <button
+                            className={`px-4 py-2 rounded-lg ${title.trim() && description.trim() ? "bg-green-700 text-white" : "bg-gray-600 text-gray-400 cursor-not-allowed"
+                                }`}
+                            onClick={handleCreateIssue}
+                            disabled={!title.trim() || !description.trim()}
+                        >
+                            Create
+                        </button>
+
                     </div>
                 </div>
 

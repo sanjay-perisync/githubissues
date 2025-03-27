@@ -16,6 +16,7 @@ const IssueList = () => {
   const [editingIssue, setEditingIssue] = useState(null);
   const [editTitle, setEditTitle] = useState("");
   const [editDescription, setEditDescription] = useState("");
+  const [editAssignee, setEditeditAssignee] = useState("");
   const [search, setSearch] = useState("");
 
 
@@ -27,6 +28,7 @@ const IssueList = () => {
     setEditingIssue(issue.id);
     setEditTitle(issue.title);
     setEditDescription(issue.description || "");
+    setEditeditAssignee(issue.assignees);
     setMenuId(null);
   };
 
@@ -37,12 +39,14 @@ const IssueList = () => {
         issueId: editingIssue,
         updates: {
           title: editTitle,
-          description: editDescription
+          description: editDescription,
+          assignees:editAssignee
         }
       }));
       setEditingIssue(null);
       setEditTitle("");
       setEditDescription("");
+      setEditeditAssignee("")
     }
   };
 
@@ -50,6 +54,7 @@ const IssueList = () => {
     setEditingIssue(null);
     setEditTitle("");
     setEditDescription("");
+    setEditeditAssignee("")
   };
 
 
@@ -60,7 +65,7 @@ const IssueList = () => {
 
   return (
     <div className="bg-slate-900 h-screen">
-      <main className="mx-auto max-w-3xl pt-10">
+      <main className="mx-auto max-w-3xl pt-10 px-4">
         <Link to={'/'} className="text-white hover:underline pb-5 flex items-center">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 512 512">
             <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="48" d="M244 400L100 256l144-144M120 256h292" />
@@ -115,6 +120,13 @@ const IssueList = () => {
                     <textarea
                       value={editDescription}
                       onChange={(e) => setEditDescription(e.target.value)}
+                      className="w-full mb-2 px-2 py-1 rounded bg-gray-800 text-white"
+                      placeholder="Issue Description"
+                      rows="3"
+                    />
+                    <textarea
+                      value={editAssignee}
+                      onChange={(e) => setEditeditAssignee(e.target.value)}
                       className="w-full mb-2 px-2 py-1 rounded bg-gray-800 text-white"
                       placeholder="Issue Description"
                       rows="3"
