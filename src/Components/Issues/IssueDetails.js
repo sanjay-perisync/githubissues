@@ -39,9 +39,9 @@ const IssueDetails = () => {
         </div>
         </div>
 
-        <p className="mt-2 text-gray-300 min-h-[150px] w-full border border-blue-900 rounded-lg ">
+        <div className="mt-2 text-gray-300 min-h-[150px] w-full border border-blue-900 rounded-lg ">
         <p className=" font-semibold bg-slate-800 rounded-t-lg border-b border-blue-900 p-2">{issue.assignees || "No One"}</p>
-        <span className="p-2 ">{issue.description}</span></p>
+        <p className="p-2">{issue.description}</p></div>
       </div>
     </div>
     </div>
