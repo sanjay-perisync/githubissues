@@ -16,7 +16,7 @@ const IssueList = () => {
   const [editingIssue, setEditingIssue] = useState(null);
   const [editTitle, setEditTitle] = useState("");
   const [editDescription, setEditDescription] = useState("");
-  const [editAssignee, setEditeditAssignee] = useState("");
+  const [editAssignee, setEditAssignee] = useState("");
   const [search, setSearch] = useState("");
 
 
@@ -28,7 +28,7 @@ const IssueList = () => {
     setEditingIssue(issue.id);
     setEditTitle(issue.title);
     setEditDescription(issue.description || "");
-    setEditeditAssignee(issue.assignees);
+    setEditAssignee(issue.assignees);
     setMenuId(null);
   };
 
@@ -46,7 +46,7 @@ const IssueList = () => {
       setEditingIssue(null);
       setEditTitle("");
       setEditDescription("");
-      setEditeditAssignee("")
+      setEditAssignee("")
     }
   };
 
@@ -54,7 +54,7 @@ const IssueList = () => {
     setEditingIssue(null);
     setEditTitle("");
     setEditDescription("");
-    setEditeditAssignee("")
+    setEditAssignee("")
   };
 
 
@@ -126,7 +126,7 @@ const IssueList = () => {
                     />
                     <textarea
                       value={editAssignee}
-                      onChange={(e) => setEditeditAssignee(e.target.value)}
+                      onChange={(e) => setEditAssignee(e.target.value)}
                       className="w-full mb-2 px-2 py-1 rounded bg-gray-800 text-white"
                       placeholder="Issue Description"
                       rows="3"
