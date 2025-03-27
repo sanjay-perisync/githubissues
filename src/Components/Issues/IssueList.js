@@ -73,7 +73,7 @@ const IssueList = () => {
           <span>Projects</span>
         </Link>
         <header>
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex flex-wrap gap-2  justify-between items-center mb-6">
             <input
               type="text"
               placeholder="Search Issues"

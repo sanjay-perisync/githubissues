@@ -26,7 +26,7 @@ const IssueDetails = () => {
       </button>
 
       <div className="mt-5">
-        <div className="flex justify-between items-center gap-2 ">
+        <div className="flex flex-wrap justify-between items-center gap-2 ">
 
 <div>
       <p className=" font-semibold text-2xl">{issue.title}</p>
