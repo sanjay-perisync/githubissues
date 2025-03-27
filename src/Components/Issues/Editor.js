@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
-// import useLexicalComposerContext  from "@lexical/react/LexicalComposerContext";
-import { Bold, Italic, Underline, Link2, List, Code } from "lucide-react";
+import { Bold, Italic, Strikethrough } from "lucide-react";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
-import { $getRoot, FORMAT_ELEMENT_COMMAND } from "lexical";
+import { $getRoot, FORMAT_TEXT_COMMAND } from "lexical";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 
 const Toolbar = () => {
@@ -15,23 +14,23 @@ const Toolbar = () => {
         <div className="flex justify-between pb-2">
             <p className="text-gray-400">Type your description here...</p>
             <div>
-                <button onClick={() => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "bold")} className="p-2 text-white hover:bg-gray-700 rounded">
+                <button 
+                    onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, "bold")} 
+                    className="p-2 text-white hover:bg-gray-700 rounded"
+                >
                     <Bold size={18} />
                 </button>
-                <button onClick={() => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND,"italic")} className="p-2 text-white hover:bg-gray-700 rounded">
+                <button 
+                    onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, "italic")} 
+                    className="p-2 text-white hover:bg-gray-700 rounded"
+                >
                     <Italic size={18} />
                 </button>
-                <button onClick={() => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND,"underline")} className="p-2 text-white hover:bg-gray-700 rounded">
-                    <Underline size={18} />
-                </button>
-                <button onClick={() => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND,"link")} className="p-2 text-white hover:bg-gray-700 rounded">
-                    <Link2 size={18} />
-                </button>
-                <button onClick={() => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND,"insertUnorderedList")} className="p-2 text-white hover:bg-gray-700 rounded">
-                    <List size={18} />
-                </button>
-                <button onClick={() => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND,"code")} className="p-2 text-white hover:bg-gray-700 rounded">
-                    <Code size={18} />
+                <button 
+                    onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, "strikethrough")} 
+                    className="p-2 text-white hover:bg-gray-700 rounded"
+                >
+                    <Strikethrough size={18} />
                 </button>
             </div>
         </div>
@@ -54,11 +53,16 @@ const EditorOnChange = ({ onChange }) => {
 };
 
 const Editor = ({ onChange }) => {
-
-    // const [editor] = useLexicalComposerContext();
     const initialConfig = {
         namespace: "MyEditor",
-        theme: { paragraph: "mb-2 text-white" },
+        theme: { 
+            paragraph: "mb-2 text-white",
+            text: {
+                bold: "font-bold",
+                italic: "italic",
+                strikethrough: "line-through"
+            }
+        },
         onError(error) {
             console.error(error);
         },

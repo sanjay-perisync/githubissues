@@ -1,0 +1,724 @@
+.lexicalEditor-ltr {
+  text-align: start;
+}
+
+.lexicalEditor-rtl {
+  text-align: end;
+}
+
+.lexicalEditor-paragraph {
+  margin: 0;
+  position: relative;
+}
+
+.lexicalEditor-quote {
+  margin: 0;
+  margin-inline-start: 20px;
+  margin-block-end: 10px;
+  font-size: 15px;
+  color: rgb(101, 103, 107);
+  border-inline-start-color: rgb(206, 208, 212);
+  border-inline-start-width: 4px;
+  border-inline-start-style: solid;
+  padding-inline-start: 16px;
+}
+
+.lexicalEditor-h1 {
+  font-size: 35px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.lexicalEditor-h2 {
+  font-size: 30px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.lexicalEditor-h3 {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.lexicalEditor-h4 {
+  font-size: 23px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.lexicalEditor-h5 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.lexicalEditor-h6 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.lexicalEditor-indent {
+  --lexical-indent-base-value: 40px;
+}
+
+.lexicalEditor-textBold {
+  font-weight: bold;
+}
+
+.lexicalEditor-paragraph mark {
+  background-color: unset;
+}
+
+.lexicalEditor-textHighlight {
+  background: rgba(255, 212, 0, 0.14);
+  border-block-end: 2px solid rgba(255, 212, 0, 0.3);
+}
+
+.lexicalEditor-textItalic {
+  font-style: italic;
+}
+
+.lexicalEditor-textUnderline {
+  text-decoration: underline;
+}
+
+.lexicalEditor-textStrikethrough {
+  text-decoration: line-through;
+}
+
+.lexicalEditor-textUnderlineStrikethrough {
+  text-decoration: underline line-through;
+}
+
+.lexicalEditor-tabNode {
+  position: relative;
+  text-decoration: none;
+}
+
+.lexicalEditor-tabNode.lexicalEditor-textUnderline::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0.15em;
+  border-block-end: 0.1em solid currentColor;
+}
+
+.lexicalEditor-tabNode.lexicalEditor-textStrikethrough::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 0.69em;
+  border-block-start: 0.1em solid currentColor;
+}
+
+.lexicalEditor-tabNode.lexicalEditor-textUnderlineStrikethrough::before,
+.lexicalEditor-tabNode.lexicalEditor-textUnderlineStrikethrough::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+}
+
+.lexicalEditor-tabNode.lexicalEditor-textUnderlineStrikethrough::before {
+  inset-block-start: 0.69em;
+  border-block-start: 0.1em solid currentColor;
+}
+
+.lexicalEditor-tabNode.lexicalEditor-textUnderlineStrikethrough::after {
+  inset-block-end: 0.05em;
+  border-block-end: 0.1em solid currentColor;
+}
+
+.lexicalEditor-textSubscript {
+  font-size: 0.8em;
+  vertical-align: sub !important;
+}
+
+.lexicalEditor-textSuperscript {
+  font-size: 0.8em;
+  vertical-align: super;
+}
+
+.lexicalEditor-textCode {
+  background-color: rgb(240, 242, 245);
+  padding-block: 1px;
+  padding-inline: 0.25rem;
+  font-family: Menlo, Consolas, Monaco, monospace;
+  font-size: 94%;
+}
+
+.lexicalEditor-textLowercase {
+  text-transform: lowercase;
+}
+
+.lexicalEditor-textUppercase {
+  text-transform: uppercase;
+}
+
+.lexicalEditor-textCapitalize {
+  text-transform: capitalize;
+}
+
+.lexicalEditor-hashtag {
+  background-color: rgba(88, 144, 255, 0.15);
+  border-block-end: 1px solid rgba(88, 144, 255, 0.3);
+}
+
+.lexicalEditor-link {
+  color: rgb(33, 111, 219);
+  text-decoration: none;
+}
+
+.lexicalEditor-link:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.lexicalEditor-blockCursor {
+  display: block;
+  pointer-events: none;
+  position: absolute;
+}
+
+.lexicalEditor-blockCursor:after {
+  content: '';
+  display: block;
+  position: absolute;
+  inset-block-start: -2px;
+  inline-size: 20px;
+  border-block-start: 1px solid black;
+  animation: CursorBlink 1.1s steps(2, start) infinite;
+}
+
+@keyframes CursorBlink {
+  to {
+    visibility: hidden;
+  }
+}
+
+.lexicalEditor-code {
+  background-color: rgb(240, 242, 245);
+  font-family: Menlo, Consolas, Monaco, monospace;
+  display: block;
+  padding-block: 8px;
+  padding-inline: 52px 8px;
+  line-height: 1.53;
+  font-size: 13px;
+  margin: 0;
+  margin-block: 8px;
+  overflow-x: auto;
+  position: relative;
+  tab-size: 2;
+}
+
+.lexicalEditor-code:before {
+  content: attr(data-gutter);
+  position: absolute;
+  background-color: #eee;
+  inset-inline-start: 0;
+  inset-block-start: 0;
+  border-inline-end: 1px solid #ccc;
+  padding: 8px;
+  color: #777;
+  white-space: pre-wrap;
+  text-align: end;
+  min-inline-size: 25px;
+}
+
+.lexicalEditor-tableScrollableWrapper {
+  overflow-x: auto;
+  margin-block: 0px 30px;
+  margin-inline: 0px 25px;
+}
+
+.lexicalEditor-tableScrollableWrapper>.lexicalEditor-table {
+  /* Remove the table's vertical margin and put it on the wrapper */
+  margin-block: 0;
+}
+
+.lexicalEditor-tableAlignmentCenter {
+  margin-inline: auto;
+}
+
+.lexicalEditor-tableAlignmentRight {
+  margin-inline-start: auto;
+}
+
+.lexicalEditor-table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  overflow-y: scroll;
+  overflow-x: scroll;
+  table-layout: fixed;
+  margin-block: 25px 30px;
+
+  * {
+    // border: none !important;
+    font-size: 16px !important;
+  }
+
+  p {
+    margin-block-end: 0;
+    text-align: center !important;
+  }
+
+  tr {
+    // height: fit-content !important;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f0f0f0;
+  }
+}
+
+.lexicalEditor-tableFrozenRow {
+  /* position:sticky needs overflow:clip or visible
+     https://github.com/w3c/csswg-drafts/issues/865#issuecomment-350585274 */
+  overflow-x: clip;
+}
+
+.lexicalEditor-tableFrozenRow tr:nth-of-type(1)>td {
+  overflow: clip;
+  background-color: #ffffff;
+  position: sticky;
+  z-index: 2;
+  inset-block-start: 44px;
+}
+
+.lexicalEditor-tableFrozenRow tr:nth-of-type(1)>th {
+  overflow: clip;
+  background-color: #f2f3f5;
+  position: sticky;
+  z-index: 2;
+  inset-block-start: 44px;
+}
+
+.lexicalEditor-tableFrozenRow tr:nth-of-type(1)>th:after,
+.lexicalEditor-tableFrozenRow tr:nth-of-type(1)>td:after {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-end: 0;
+  inline-size: 100%;
+  border-block-end: 1px solid #bbb;
+}
+
+.lexicalEditor-tableFrozenColumn tr>td:first-child {
+  background-color: #ffffff;
+  position: sticky;
+  z-index: 2;
+  inset-inline-start: 0;
+}
+
+.lexicalEditor-tableFrozenColumn tr>th:first-child {
+  background-color: #f2f3f5;
+  position: sticky;
+  z-index: 2;
+  inset-inline-start: 0;
+}
+
+.lexicalEditor-tableFrozenColumn tr> :first-child::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 0;
+  block-size: 100%;
+  border-inline-end: 1px solid #bbb;
+}
+
+.lexicalEditor-tableRowStriping tr:nth-child(even) {
+  background-color: #f2f5fb;
+}
+
+.lexicalEditor-tableSelection *::selection {
+  background-color: transparent;
+}
+
+.lexicalEditor-tableSelected {
+  outline: 2px solid rgb(60, 132, 244);
+}
+
+.lexicalEditor-tableCell {
+  border: 1px solid #bbb;
+  inline-size: 75px;
+  // vertical-align: top;
+  // text-align: start;
+  vertical-align: middle !important;
+  text-align: center !important;
+  padding-block: 6px;
+  padding-inline: 8px;
+  position: relative;
+  outline: none;
+  overflow: auto;
+}
+
+/*
+  A firefox workaround to allow scrolling of overflowing table cell
+  ref: https://bugzilla.mozilla.org/show_bug.cgi?id=1904159
+*/
+.lexicalEditor-tableCell>* {
+  overflow: inherit;
+}
+
+.lexicalEditor-tableCellResizer {
+  position: absolute;
+  inset-inline-end: -4px;
+  block-size: 100%;
+  inline-size: 8px;
+  cursor: ew-resize;
+  z-index: 10;
+  inset-block-start: 0;
+}
+
+.lexicalEditor-tableCellHeader {
+  background-color: #f2f3f5;
+  text-align: start;
+}
+
+.lexicalEditor-tableCellSelected {
+  caret-color: transparent;
+}
+
+.lexicalEditor-tableCellSelected::after {
+  position: absolute;
+  inset: 0;
+  background-color: highlight;
+  mix-blend-mode: multiply;
+  content: '';
+  pointer-events: none;
+}
+
+.lexicalEditor-tableAddColumns {
+  position: absolute;
+  background-color: #eee;
+  block-size: 100%;
+  animation: table-controls 0.2s ease;
+  border: 0;
+  cursor: pointer;
+}
+
+.lexicalEditor-tableAddColumns:after {
+  // background-image: url(../images/icons/plus.svg);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: block;
+  content: ' ';
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  opacity: 0.4;
+}
+
+.lexicalEditor-tableAddColumns:hover,
+.lexicalEditor-tableAddRows:hover {
+  background-color: #c9dbf0;
+}
+
+.lexicalEditor-tableAddRows {
+  position: absolute;
+  inline-size: calc(100% - 25px);
+  background-color: #eee;
+  animation: table-controls 0.2s ease;
+  border: 0;
+  cursor: pointer;
+}
+
+.lexicalEditor-tableAddRows:after {
+  // background-image: url(../images/icons/plus.svg);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: block;
+  content: ' ';
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  opacity: 0.4;
+}
+
+@keyframes table-controls {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.lexicalEditor-tableCellResizeRuler {
+  display: block;
+  position: absolute;
+  inline-size: 1px;
+  background-color: rgb(60, 132, 244);
+  block-size: 100%;
+  inset-block-start: 0;
+}
+
+.lexicalEditor-tableCellActionButtonContainer {
+  display: block;
+  inset-inline-end: 5px;
+  inset-block-start: 6px;
+  position: absolute;
+  z-index: 4;
+  inline-size: 20px;
+  block-size: 20px;
+}
+
+.lexicalEditor-tableCellActionButton {
+  background-color: #eee;
+  display: block;
+  border: 0;
+  border-radius: 20px;
+  inline-size: 20px;
+  block-size: 20px;
+  color: #222;
+  cursor: pointer;
+}
+
+.lexicalEditor-tableCellActionButton:hover {
+  background-color: #ddd;
+}
+
+.lexicalEditor-characterLimit {
+  display: inline;
+  background-color: #ffbbbb !important;
+}
+
+.lexicalEditor-ol1 {
+  padding: 0;
+  margin: 0;
+  list-style-position: outside;
+}
+
+.lexicalEditor-ol2 {
+  padding: 0;
+  margin: 0;
+  list-style-type: upper-alpha;
+  list-style-position: outside;
+}
+
+.lexicalEditor-ol3 {
+  padding: 0;
+  margin: 0;
+  list-style-type: lower-alpha;
+  list-style-position: outside;
+}
+
+.lexicalEditor-ol4 {
+  padding: 0;
+  margin: 0;
+  list-style-type: upper-roman;
+  list-style-position: outside;
+}
+
+.lexicalEditor-ol5 {
+  padding: 0;
+  margin: 0;
+  list-style-type: lower-roman;
+  list-style-position: outside;
+}
+
+.lexicalEditor-ul {
+  padding: 0;
+  margin: 0;
+  list-style-position: outside;
+}
+
+.lexicalEditor-listItem {
+  margin-block: 0;
+  margin-inline: 32px;
+}
+
+.lexicalEditor-listItem::marker {
+  color: var(--listitem-marker-color);
+  background-color: var(--listitem-marker-background-color);
+  font-family: var(--listitem-marker-font-family);
+  font-size: var(--listitem-marker-font-size);
+}
+
+.lexicalEditor-listItemChecked,
+.lexicalEditor-listItemUnchecked {
+  position: relative;
+  margin-inline: 8px;
+  padding-inline: 24px;
+  list-style-type: none;
+  outline: none;
+}
+
+.lexicalEditor-listItemChecked {
+  text-decoration: line-through;
+}
+
+.lexicalEditor-listItemUnchecked:before,
+.lexicalEditor-listItemChecked:before {
+  content: '';
+  inline-size: 16px;
+  block-size: 16px;
+  inset-block-start: 2px;
+  inset-inline-start: 0;
+  cursor: pointer;
+  display: block;
+  background-size: cover;
+  position: absolute;
+}
+
+.lexicalEditor-listItemUnchecked[dir='rtl']:before,
+.lexicalEditor-listItemChecked[dir='rtl']:before {
+  inset-inline: auto 0;
+}
+
+.lexicalEditor-listItemUnchecked:focus:before,
+.lexicalEditor-listItemChecked:focus:before {
+  box-shadow: 0 0 0 2px #a6cdfe;
+  border-radius: 2px;
+}
+
+.lexicalEditor-listItemUnchecked:before {
+  border: 1px solid #999;
+  border-radius: 2px;
+}
+
+.lexicalEditor-listItemChecked:before {
+  border: 1px solid rgb(61, 135, 245);
+  border-radius: 2px;
+  background-color: #3d87f5;
+  background-repeat: no-repeat;
+}
+
+.lexicalEditor-listItemChecked:after {
+  content: '';
+  cursor: pointer;
+  border-color: #fff;
+  border-style: solid;
+  position: absolute;
+  display: block;
+  inset-block-start: 6px;
+  inline-size: 3px;
+  inset-inline: 7px;
+  block-size: 6px;
+  transform: rotate(45deg);
+  border-width: 0 2px 2px 0;
+}
+
+.lexicalEditor-nestedListItem {
+  list-style-type: none;
+}
+
+.lexicalEditor-nestedListItem:before,
+.lexicalEditor-nestedListItem:after {
+  display: none;
+}
+
+.lexicalEditor-tokenComment {
+  color: slategray;
+}
+
+.lexicalEditor-tokenPunctuation {
+  color: #999;
+}
+
+.lexicalEditor-tokenProperty {
+  color: #905;
+}
+
+.lexicalEditor-tokenSelector {
+  color: #690;
+}
+
+.lexicalEditor-tokenOperator {
+  color: #9a6e3a;
+}
+
+.lexicalEditor-tokenAttr {
+  color: #07a;
+}
+
+.lexicalEditor-tokenVariable {
+  color: #e90;
+}
+
+.lexicalEditor-tokenFunction {
+  color: #dd4a68;
+}
+
+.lexicalEditor-mark {
+  background: rgba(255, 212, 0, 0.14);
+  border-block-end: 2px solid rgba(255, 212, 0, 0.3);
+  padding-block-end: 2px;
+}
+
+.lexicalEditor-markOverlap {
+  background: rgba(255, 212, 0, 0.3);
+  border-block-end: 2px solid rgba(255, 212, 0, 0.7);
+}
+
+.lexicalEditor-mark.selected {
+  background: rgba(255, 212, 0, 0.5);
+  border-block-end: 2px solid rgba(255, 212, 0, 1);
+}
+
+.lexicalEditor-markOverlap.selected {
+  background: rgba(255, 212, 0, 0.7);
+  border-block-end: 2px solid rgba(255, 212, 0, 0.7);
+}
+
+.lexicalEditor-embedBlock {
+  user-select: none;
+}
+
+.lexicalEditor-embedBlockFocus {
+  outline: 2px solid rgb(60, 132, 244);
+}
+
+.lexicalEditor-layoutContainer {
+  display: grid;
+  gap: 10px;
+  margin-block: 10px;
+  margin-inline: 0;
+}
+
+.lexicalEditor-layoutItem {
+  border: 1px dashed #ddd;
+  padding-block: 8px;
+  padding-inline: 16px;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
+
+.lexicalEditor-autocomplete {
+  color: #ccc;
+}
+
+.lexicalEditor-hr {
+  padding-block: 2px;
+  padding-inline: 2px;
+  border: none;
+  margin-block: 1em;
+  margin-inline: 0;
+  cursor: pointer;
+}
+
+.lexicalEditor-hr:after {
+  content: '';
+  display: block;
+  block-size: 2px;
+  background-color: #ccc;
+  line-height: 2px;
+}
+
+.lexicalEditor-hr.lexicalEditor-hrSelected {
+  outline: 2px solid rgb(60, 132, 244);
+  user-select: none;
+}
+
+.lexicalEditor-specialText {
+  background-color: yellow;
+  font-weight: bold;
+}

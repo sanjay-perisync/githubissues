@@ -4,9 +4,12 @@ import { useDispatch } from "react-redux";
 import { AddIssue } from "../../Redux/Slices/Issue/IssuesSlice";
 import Editor from "./Editor";
 
+
+
 const CreateIssue = () => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+   
     const { projectId } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -68,6 +71,7 @@ const handleCreateIssue = () => {
                     <div className="mt-8">
                         <label className="text-sm mb-2 text-white">Add a description</label>
                         <Editor onChange={setDescription} />
+                       
                     </div>
 
                     <div className="flex justify-end gap-5 items-center mt-5">
