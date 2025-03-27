@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { DeleteIssue, updateIssue } from "../../Redux/Slices/Issue/IssuesSlice";
+import NewIsuueBtn from "./NewIsuueBtn";
 
 const IssueList = () => {
   const { projectId } = useParams();
@@ -74,7 +75,7 @@ const IssueList = () => {
               className="w-full max-w-md px-4 py-2 rounded-md text-white bg-slate-900 border border-gray-700"
               onChange={(e) => setSearch(e.target.value)}
             />
-            <Link
+            {/* <Link
               to={`/createissue/${projectId}`}
               className="bg-green-700 flex gap-1 text-white px-4 py-2 rounded-md"
             >
@@ -92,7 +93,8 @@ const IssueList = () => {
                 </svg>
               </div>
               <p className="font-semibold">New Issue</p>
-            </Link>
+            </Link> */}
+            <NewIsuueBtn/>
           </div>
         </header>
 
@@ -133,13 +135,9 @@ const IssueList = () => {
                         onClick={() => setMenuId(menuId === issue.id ? null : issue.id)}
                         className="hover:bg-gray-700 px-2 py-1 rounded-lg"
                       >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-gray-400" viewBox="0 0 512 512">
-                          <path
-                            fill="currentColor"
-                            fillRule="evenodd"
-                            d="M117.333 256c0-17.673-14.327-32-32-32s-32 14.327-32 32s14.327 32 32 32s32-14.327 32-32m341.333 0c0-17.673-14.327-32-32-32s-32 14.327-32 32s14.327 32 32 32M288 256c0-17.673-14.327-32-32-32s-32 14.327-32 32s14.327-32 32-32"
-                          />
-                        </svg>
+                          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-gray-400" viewBox="0 0 512 512">
+                        <path fill="currentColor" fillRule="evenodd" d="M117.333 256c0-17.673-14.327-32-32-32s-32 14.327-32 32s14.327 32 32 32s32-14.327 32-32m341.333 0c0-17.673-14.327-32-32-32s-32 14.327-32 32s14.327 32 32 32s32-14.327 32-32M288 256c0-17.673-14.327-32-32-32s-32 14.327-32 32s14.327 32 32 32s32-14.327 32-32"/>
+                      </svg>
                       </button>
 
                       {menuId === issue.id && (

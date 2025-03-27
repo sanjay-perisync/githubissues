@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import NewIsuueBtn from "./NewIsuueBtn";
 
 const IssueDetails = () => {
   const { projectId, issueId } = useParams();
@@ -25,12 +26,22 @@ const IssueDetails = () => {
       </button>
 
       <div className="mt-5">
-        <div className="flex items-center gap-2 text-2xl">
-      <p className=" font-semibold">{issue.title}</p>
-        <p className="text-gray-500">#{issue.id}</p>
+        <div className="flex justify-between items-center gap-2 ">
+
+<div>
+      <p className=" font-semibold text-2xl">{issue.title}</p>
+     
+        <p className="text-gray-500 text-2xl">#{issue.id}</p>
         </div>
 
-        <p className="mt-2 text-gray-300 min-h-[150px] w-full border border-gray-700 rounded-lg p-2">{issue.description}</p>
+        <div>
+        <NewIsuueBtn/>
+        </div>
+        </div>
+
+        <p className="mt-2 text-gray-300 min-h-[150px] w-full border border-blue-900 rounded-lg ">
+        <p className=" font-semibold bg-slate-800 rounded-t-lg border-b border-blue-900 p-2">{issue.assignees || "No One"}</p>
+        <span className="p-2 ">{issue.description}</span></p>
       </div>
     </div>
     </div>
