@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import NewIsuueBtn from "./NewIsuueBtn";
 
@@ -40,7 +40,7 @@ const IssueDetails = () => {
         </div>
 
         <div className="mt-2 text-gray-300 min-h-[150px] w-full border border-blue-900 rounded-lg ">
-        <p className=" font-semibold bg-slate-800 rounded-t-lg border-b border-blue-900 p-2">{issue.assignees || "No One"}</p>
+        <p className=" font-semibold bg-slate-800 rounded-t-lg border-b border-blue-900 p-2">{issue.assignees || "No Assignees"}</p>
         <p className="p-2">{issue.description}</p></div>
       </div>
     </div>
